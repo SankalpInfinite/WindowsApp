@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RailwayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Bid" />
+          </Key>
+          <Property Name="Bid" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tno" Type="int" />
+          <Property Name="class" Type="varchar" MaxLength="1" />
+          <Property Name="Bdate" Type="datetime" />
+          <Property Name="Travdate" Type="datetime" />
+          <Property Name="NoofTic" Type="int" />
+          <Property Name="TotalAmt" Type="int" />
+        </EntityType>
+        <EntityType Name="Cancel">
+          <Key>
+            <PropertyRef Name="Cid" />
+          </Key>
+          <Property Name="Cid" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Candate" Type="datetime" />
+          <Property Name="Tno" Type="int" />
+          <Property Name="NoofCTic" Type="int" />
+          <Property Name="refund" Type="int" />
+          <Property Name="rem" Type="varchar" MaxLength="20" />
+          <Property Name="Bid" Type="varchar" MaxLength="10" />
+          <Property Name="class" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="TrainDetail">
+          <Key>
+            <PropertyRef Name="Tno" />
+            <PropertyRef Name="class" />
+          </Key>
+          <Property Name="Tno" Type="int" Nullable="false" />
+          <Property Name="class" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Tname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TotalBerth" Type="int" />
+          <Property Name="AvailableBerth" Type="int" />
+          <Property Name="TStatus" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <Association Name="FK__Book__4AB81AF0">
+          <End Role="TrainDetail" Type="Self.TrainDetail" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainDetail">
+              <PropertyRef Name="Tno" />
+              <PropertyRef Name="class" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="Tno" />
+              <PropertyRef Name="class" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cancel__5629CD9C">
+          <End Role="TrainDetail" Type="Self.TrainDetail" Multiplicity="0..1" />
+          <End Role="Cancel" Type="Self.Cancel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainDetail">
+              <PropertyRef Name="Tno" />
+              <PropertyRef Name="class" />
+            </Principal>
+            <Dependent Role="Cancel">
+              <PropertyRef Name="Tno" />
+              <PropertyRef Name="class" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cancel__Bid__5AEE82B9">
+          <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+          <End Role="Cancel" Type="Self.Cancel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Bid" />
+            </Principal>
+            <Dependent Role="Cancel">
+              <PropertyRef Name="Bid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RailwayModelStoreContainer">
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cancel" EntityType="Self.Cancel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainDetail" EntityType="Self.TrainDetail" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Book__4AB81AF0" Association="Self.FK__Book__4AB81AF0">
+            <End Role="TrainDetail" EntitySet="TrainDetail" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cancel__5629CD9C" Association="Self.FK__Cancel__5629CD9C">
+            <End Role="TrainDetail" EntitySet="TrainDetail" />
+            <End Role="Cancel" EntitySet="Cancel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cancel__Bid__5AEE82B9" Association="Self.FK__Cancel__Bid__5AEE82B9">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Cancel" EntitySet="Cancel" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RailwayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Bid" />
+          </Key>
+          <Property Name="Bid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tno" Type="Int32" />
+          <Property Name="class" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Bdate" Type="DateTime" Precision="3" />
+          <Property Name="Travdate" Type="DateTime" Precision="3" />
+          <Property Name="NoofTic" Type="Int32" />
+          <Property Name="TotalAmt" Type="Int32" />
+          <NavigationProperty Name="TrainDetail" Relationship="Self.FK__Book__4AB81AF0" FromRole="Book" ToRole="TrainDetail" />
+          <NavigationProperty Name="Cancels" Relationship="Self.FK__Cancel__Bid__5AEE82B9" FromRole="Book" ToRole="Cancel" />
+        </EntityType>
+        <EntityType Name="Cancel">
+          <Key>
+            <PropertyRef Name="Cid" />
+          </Key>
+          <Property Name="Cid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Candate" Type="DateTime" Precision="3" />
+          <Property Name="Tno" Type="Int32" />
+          <Property Name="NoofCTic" Type="Int32" />
+          <Property Name="refund" Type="Int32" />
+          <Property Name="rem" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Bid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="class" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Book" Relationship="Self.FK__Cancel__Bid__5AEE82B9" FromRole="Cancel" ToRole="Book" />
+          <NavigationProperty Name="TrainDetail" Relationship="Self.FK__Cancel__5629CD9C" FromRole="Cancel" ToRole="TrainDetail" />
+        </EntityType>
+        <EntityType Name="TrainDetail">
+          <Key>
+            <PropertyRef Name="Tno" />
+            <PropertyRef Name="class" />
+          </Key>
+          <Property Name="Tno" Type="Int32" Nullable="false" />
+          <Property Name="class" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TotalBerth" Type="Int32" />
+          <Property Name="AvailableBerth" Type="Int32" />
+          <Property Name="TStatus" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK__Book__4AB81AF0" FromRole="TrainDetail" ToRole="Book" />
+          <NavigationProperty Name="Cancels" Relationship="Self.FK__Cancel__5629CD9C" FromRole="TrainDetail" ToRole="Cancel" />
+        </EntityType>
+        <Association Name="FK__Book__4AB81AF0">
+          <End Role="TrainDetail" Type="Self.TrainDetail" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainDetail">
+              <PropertyRef Name="Tno" />
+              <PropertyRef Name="class" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="Tno" />
+              <PropertyRef Name="class" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cancel__Bid__5AEE82B9">
+          <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+          <End Role="Cancel" Type="Self.Cancel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Bid" />
+            </Principal>
+            <Dependent Role="Cancel">
+              <PropertyRef Name="Bid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cancel__5629CD9C">
+          <End Role="TrainDetail" Type="Self.TrainDetail" Multiplicity="0..1" />
+          <End Role="Cancel" Type="Self.Cancel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainDetail">
+              <PropertyRef Name="Tno" />
+              <PropertyRef Name="class" />
+            </Principal>
+            <Dependent Role="Cancel">
+              <PropertyRef Name="Tno" />
+              <PropertyRef Name="class" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RailwayEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="Cancels" EntityType="Self.Cancel" />
+          <EntitySet Name="TrainDetails" EntityType="Self.TrainDetail" />
+          <AssociationSet Name="FK__Book__4AB81AF0" Association="Self.FK__Book__4AB81AF0">
+            <End Role="TrainDetail" EntitySet="TrainDetails" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cancel__Bid__5AEE82B9" Association="Self.FK__Cancel__Bid__5AEE82B9">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Cancel" EntitySet="Cancels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cancel__5629CD9C" Association="Self.FK__Cancel__5629CD9C">
+            <End Role="TrainDetail" EntitySet="TrainDetails" />
+            <End Role="Cancel" EntitySet="Cancels" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RailwayModelStoreContainer" CdmEntityContainer="RailwayEntities">
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="RailwayModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Bid" ColumnName="Bid" />
+                <ScalarProperty Name="Tno" ColumnName="Tno" />
+                <ScalarProperty Name="class" ColumnName="class" />
+                <ScalarProperty Name="Bdate" ColumnName="Bdate" />
+                <ScalarProperty Name="Travdate" ColumnName="Travdate" />
+                <ScalarProperty Name="NoofTic" ColumnName="NoofTic" />
+                <ScalarProperty Name="TotalAmt" ColumnName="TotalAmt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cancels">
+            <EntityTypeMapping TypeName="RailwayModel.Cancel">
+              <MappingFragment StoreEntitySet="Cancel">
+                <ScalarProperty Name="Cid" ColumnName="Cid" />
+                <ScalarProperty Name="Candate" ColumnName="Candate" />
+                <ScalarProperty Name="Tno" ColumnName="Tno" />
+                <ScalarProperty Name="NoofCTic" ColumnName="NoofCTic" />
+                <ScalarProperty Name="refund" ColumnName="refund" />
+                <ScalarProperty Name="rem" ColumnName="rem" />
+                <ScalarProperty Name="Bid" ColumnName="Bid" />
+                <ScalarProperty Name="class" ColumnName="class" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainDetails">
+            <EntityTypeMapping TypeName="RailwayModel.TrainDetail">
+              <MappingFragment StoreEntitySet="TrainDetail">
+                <ScalarProperty Name="Tno" ColumnName="Tno" />
+                <ScalarProperty Name="class" ColumnName="class" />
+                <ScalarProperty Name="Tname" ColumnName="Tname" />
+                <ScalarProperty Name="TotalBerth" ColumnName="TotalBerth" />
+                <ScalarProperty Name="AvailableBerth" ColumnName="AvailableBerth" />
+                <ScalarProperty Name="TStatus" ColumnName="TStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

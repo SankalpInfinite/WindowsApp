@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RailwayModelStoreContainer" CdmEntityContainer="RailwayEntities">
+    <EntitySetMapping Name="Books">
+      <EntityTypeMapping TypeName="RailwayModel.Book">
+        <MappingFragment StoreEntitySet="Book">
+          <ScalarProperty Name="Bid" ColumnName="Bid" />
+          <ScalarProperty Name="Tno" ColumnName="Tno" />
+          <ScalarProperty Name="class" ColumnName="class" />
+          <ScalarProperty Name="Bdate" ColumnName="Bdate" />
+          <ScalarProperty Name="Travdate" ColumnName="Travdate" />
+          <ScalarProperty Name="NoofTic" ColumnName="NoofTic" />
+          <ScalarProperty Name="TotalAmt" ColumnName="TotalAmt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cancels">
+      <EntityTypeMapping TypeName="RailwayModel.Cancel">
+        <MappingFragment StoreEntitySet="Cancel">
+          <ScalarProperty Name="Cid" ColumnName="Cid" />
+          <ScalarProperty Name="Candate" ColumnName="Candate" />
+          <ScalarProperty Name="Tno" ColumnName="Tno" />
+          <ScalarProperty Name="NoofCTic" ColumnName="NoofCTic" />
+          <ScalarProperty Name="refund" ColumnName="refund" />
+          <ScalarProperty Name="rem" ColumnName="rem" />
+          <ScalarProperty Name="Bid" ColumnName="Bid" />
+          <ScalarProperty Name="class" ColumnName="class" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrainDetails">
+      <EntityTypeMapping TypeName="RailwayModel.TrainDetail">
+        <MappingFragment StoreEntitySet="TrainDetail">
+          <ScalarProperty Name="Tno" ColumnName="Tno" />
+          <ScalarProperty Name="class" ColumnName="class" />
+          <ScalarProperty Name="Tname" ColumnName="Tname" />
+          <ScalarProperty Name="TotalBerth" ColumnName="TotalBerth" />
+          <ScalarProperty Name="AvailableBerth" ColumnName="AvailableBerth" />
+          <ScalarProperty Name="TStatus" ColumnName="TStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

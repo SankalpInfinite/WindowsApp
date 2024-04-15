@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RailwayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="Bid" />
+    </Key>
+    <Property Name="Bid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tno" Type="Int32" />
+    <Property Name="class" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Bdate" Type="DateTime" Precision="3" />
+    <Property Name="Travdate" Type="DateTime" Precision="3" />
+    <Property Name="NoofTic" Type="Int32" />
+    <Property Name="TotalAmt" Type="Int32" />
+    <NavigationProperty Name="TrainDetail" Relationship="Self.FK__Book__4AB81AF0" FromRole="Book" ToRole="TrainDetail" />
+    <NavigationProperty Name="Cancels" Relationship="Self.FK__Cancel__Bid__5AEE82B9" FromRole="Book" ToRole="Cancel" />
+  </EntityType>
+  <EntityType Name="Cancel">
+    <Key>
+      <PropertyRef Name="Cid" />
+    </Key>
+    <Property Name="Cid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Candate" Type="DateTime" Precision="3" />
+    <Property Name="Tno" Type="Int32" />
+    <Property Name="NoofCTic" Type="Int32" />
+    <Property Name="refund" Type="Int32" />
+    <Property Name="rem" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Bid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="class" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Book" Relationship="Self.FK__Cancel__Bid__5AEE82B9" FromRole="Cancel" ToRole="Book" />
+    <NavigationProperty Name="TrainDetail" Relationship="Self.FK__Cancel__5629CD9C" FromRole="Cancel" ToRole="TrainDetail" />
+  </EntityType>
+  <EntityType Name="TrainDetail">
+    <Key>
+      <PropertyRef Name="Tno" />
+      <PropertyRef Name="class" />
+    </Key>
+    <Property Name="Tno" Type="Int32" Nullable="false" />
+    <Property Name="class" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TotalBerth" Type="Int32" />
+    <Property Name="AvailableBerth" Type="Int32" />
+    <Property Name="TStatus" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Books" Relationship="Self.FK__Book__4AB81AF0" FromRole="TrainDetail" ToRole="Book" />
+    <NavigationProperty Name="Cancels" Relationship="Self.FK__Cancel__5629CD9C" FromRole="TrainDetail" ToRole="Cancel" />
+  </EntityType>
+  <Association Name="FK__Book__4AB81AF0">
+    <End Role="TrainDetail" Type="Self.TrainDetail" Multiplicity="0..1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TrainDetail">
+        <PropertyRef Name="Tno" />
+        <PropertyRef Name="class" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="Tno" />
+        <PropertyRef Name="class" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cancel__Bid__5AEE82B9">
+    <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+    <End Role="Cancel" Type="Self.Cancel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Bid" />
+      </Principal>
+      <Dependent Role="Cancel">
+        <PropertyRef Name="Bid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cancel__5629CD9C">
+    <End Role="TrainDetail" Type="Self.TrainDetail" Multiplicity="0..1" />
+    <End Role="Cancel" Type="Self.Cancel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TrainDetail">
+        <PropertyRef Name="Tno" />
+        <PropertyRef Name="class" />
+      </Principal>
+      <Dependent Role="Cancel">
+        <PropertyRef Name="Tno" />
+        <PropertyRef Name="class" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RailwayEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Books" EntityType="Self.Book" />
+    <EntitySet Name="Cancels" EntityType="Self.Cancel" />
+    <EntitySet Name="TrainDetails" EntityType="Self.TrainDetail" />
+    <AssociationSet Name="FK__Book__4AB81AF0" Association="Self.FK__Book__4AB81AF0">
+      <End Role="TrainDetail" EntitySet="TrainDetails" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cancel__Bid__5AEE82B9" Association="Self.FK__Cancel__Bid__5AEE82B9">
+      <End Role="Book" EntitySet="Books" />
+      <End Role="Cancel" EntitySet="Cancels" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cancel__5629CD9C" Association="Self.FK__Cancel__5629CD9C">
+      <End Role="TrainDetail" EntitySet="TrainDetails" />
+      <End Role="Cancel" EntitySet="Cancels" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
