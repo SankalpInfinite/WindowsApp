@@ -12,7 +12,6 @@ namespace Railway
         static Book bk;
         public static void Main()
         {
-            AddTicket();
             Display();
         }
         public static void DisplayYourTicket(string btk)
@@ -32,11 +31,11 @@ namespace Railway
             foreach (var d in Details)
             {
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                Console.WriteLine($"Book Id: {d.Bid}\r\nTrain no: {d.Tno}\r\nTrain Class: {d.@class}\r\nBooking Date: {d.Bdate}\r\nTravelling Date: {d.Travdate}\r\nNo of Tickets: {d.NoofTic}\r\nTotal Amount: {d.TotalAmt}");
+                Console.WriteLine($"User Name: {d.uname}\r\nBook Id: {d.Bid}\r\nTrain no: {d.Tno}\r\nTrain Class: {d.@class}\r\nBooking Date: {d.Bdate}\r\nTravelling Date: {d.Travdate}\r\nNo of Tickets: {d.NoofTic}\r\nTotal Amount: {d.TotalAmt}");
                 Console.WriteLine("----------------------------");
             }
         }
-        public static void AddTicket()
+        public static void AddTicket(string uname)
         {
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             bk = new Book();
@@ -45,16 +44,16 @@ namespace Railway
             bk.Tno= Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Enter Train class S for sleeper, 1 for 1st AC 2 for 2nd AC, 3 for 3rd AC");
             bk.@class = Console.ReadLine();
-            Console.WriteLine("Enter the Booking Date");
-            bk.Bdate = Convert.ToDateTime(Console.ReadLine());
+            bk.Bdate =  DateTime.Now;
             Console.WriteLine("Enter the Travelling Date");
             bk.Travdate = Convert.ToDateTime(Console.ReadLine());
             Console.WriteLine("Enter Total No of Tickets");
             int NoTic = Convert.ToInt32(Console.ReadLine());
-            Boolean check= Admin.UpdateBerth(NoTic);
+            Boolean check= Admin.UpdateBerth(NoTic,(int)bk.Tno,bk.@class);
             if (check == true)
                 bk.NoofTic = NoTic;
             bk.TotalAmt = TotalAmount(NoTic,bk.@class);
+            bk.uname = uname;
             ral.Books.Add(bk);
             ral.SaveChanges();
         }

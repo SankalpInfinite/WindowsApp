@@ -12,26 +12,22 @@ namespace Railway
     using System;
     using System.Collections.Generic;
     
-    public partial class Book
+    public partial class RUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Book()
+        public RUser()
         {
+            this.Books = new HashSet<Book>();
             this.Cancels = new HashSet<Cancel>();
         }
     
-        public string Bid { get; set; }
-        public Nullable<int> Tno { get; set; }
-        public string @class { get; set; }
-        public Nullable<System.DateTime> Bdate { get; set; }
-        public Nullable<System.DateTime> Travdate { get; set; }
-        public Nullable<int> NoofTic { get; set; }
-        public Nullable<int> TotalAmt { get; set; }
-        public string uname { get; set; }
+        public int UId { get; set; }
+        public string Uname { get; set; }
+        public string UserPassword { get; set; }
     
-        public virtual TrainDetail TrainDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Book> Books { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cancel> Cancels { get; set; }
-        public virtual RUser RUser { get; set; }
     }
 }

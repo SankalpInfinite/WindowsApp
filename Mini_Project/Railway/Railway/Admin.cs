@@ -10,6 +10,7 @@ namespace Railway
     {
         static RailwayEntities ral = new RailwayEntities();
         static TrainDetail td;
+        static RUser us;
         public static void Main()
         {
             AddTrain();
@@ -18,6 +19,7 @@ namespace Railway
         }
         public static void AddTrain()
         {
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             td = new TrainDetail();
             Console.WriteLine("Enter Train No.");
             td.Tno = Convert.ToInt32(Console.ReadLine());
@@ -31,37 +33,47 @@ namespace Railway
             td.AvailableBerth = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Enter Train Status Y for Yes N for No.");
             td.TStatus = Console.ReadLine();
-            
+
             ral.TrainDetails.Add(td);
             ral.SaveChanges();
         }
         public static void Display()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             var Details = ral.TrainDetails.ToList();
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("| Train Number\t| Train Name\t\t\t| Train Class\t| Total Berth   | Available Berths | Active Status|");
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------");
             foreach (var d in Details)
             {
-                Console.WriteLine($"Train no: {d.Tno}\r\nTrain Name: {d.Tname}\r\nTrain Class: {d.@class}\r\nTotal Berth: {d.TotalBerth}\r\nAvailable Berths: {d.AvailableBerth}\r\nStatus of Active: {d.TStatus}");
-                Console.WriteLine("----------------------------");
+                
+                    Console.WriteLine($"|{d.Tno}\t\t| {d.Tname}\t\t| {d.@class}\t\t| {d.TotalBerth}\t\t| {d.AvailableBerth}\t\t |{d.TStatus}\t\t |");
+                Console.WriteLine("------------------------------------------------------------------------------------------------------------------");
             }
         }
         public static void ActiveDisplay()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             var Details = ral.TrainDetails.ToList();
+            Console.WriteLine("--------------------------------------------------------------------------------------------------");
+            Console.WriteLine("| Train Number\t| Train Name\t\t\t| Train Class\t| Total Berth | Available Berths |");
+            Console.WriteLine("--------------------------------------------------------------------------------------------------");
             foreach (var d in Details)
             {
-                if(d.TStatus=="Y"||d.TStatus=="y")
-                Console.WriteLine($"Train no: {d.Tno}\r\nTrain Name: {d.Tname}\r\nTrain Class: {d.@class}\r\nTotal Berth: {d.TotalBerth}\r\nAvailable Berths: {d.AvailableBerth}\r\nStatus of Active: {d.TStatus}");
-                Console.WriteLine("----------------------------");
+                if (d.TStatus == "Y" || d.TStatus == "y")
+                Console.WriteLine($"|{d.Tno}\t\t| {d.Tname}\t\t| {d.@class}\t\t| {d.TotalBerth}\t\t| {d.AvailableBerth}\t\t|");
+                Console.WriteLine("-------------------------------------------------------------------------------------------------");
             }
         }
         public static void Active_Status()
         {
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.WriteLine("enter Train No :");
             int Trainno = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter Class:");
             string _Class = Console.ReadLine();
 
-            TrainDetail d = ral.TrainDetails.Find(Trainno,_Class);
+            TrainDetail d = ral.TrainDetails.Find(Trainno, _Class);
             if (d != null)
             {
                 Console.WriteLine("Enter Train Status Y for Yes N for No.");
@@ -72,12 +84,12 @@ namespace Railway
             else
                 Console.WriteLine("Match not found");
         }
-        public static Boolean UpdateBerth(int seats)
+        public static Boolean UpdateBerth(int seats, int Trainno, string _Class)
         {
-            Console.WriteLine("enter Train No :");
-            int Trainno = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Class:");
-            string _Class = Console.ReadLine();
+            //Console.WriteLine("enter Train No :");
+            //int Trainno = int.Parse(Console.ReadLine());
+            //Console.WriteLine("Enter Class:");
+            //string _Class = Console.ReadLine();
 
             TrainDetail d = ral.TrainDetails.Find(Trainno, _Class);
             if (d != null)
@@ -91,11 +103,21 @@ namespace Railway
                 }
                 Console.WriteLine("No seats Available");
                 return false;
-              }
+            }
             else
                 Console.WriteLine("Match not found");
             return false;
         }
+        public static void AddUser()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            us = new RUser();
+            Console.WriteLine("Enter The User Name:");
+            us.Uname = Console.ReadLine();
+            Console.WriteLine("Enter The Password");
+            us.UserPassword = Console.ReadLine();
+            ral.RUsers.Add(us);
+            ral.SaveChanges();
+        }
     }
 }
-

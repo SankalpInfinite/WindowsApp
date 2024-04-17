@@ -28,5 +28,7 @@ namespace Railway
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Cancel> Cancels { get; set; }
         public virtual DbSet<TrainDetail> TrainDetails { get; set; }
+        public virtual DbSet<RUser> RUsers { get; set; }
+        public virtual DbSet<RAdmin> RAdmins { get; set; }
     }
 }

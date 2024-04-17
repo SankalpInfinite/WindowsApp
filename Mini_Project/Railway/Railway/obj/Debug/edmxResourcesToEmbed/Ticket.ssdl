@@ -11,6 +11,7 @@
     <Property Name="Travdate" Type="datetime" />
     <Property Name="NoofTic" Type="int" />
     <Property Name="TotalAmt" Type="int" />
+    <Property Name="uname" Type="varchar" MaxLength="30" />
   </EntityType>
   <EntityType Name="Cancel">
     <Key>
@@ -24,6 +25,22 @@
     <Property Name="rem" Type="varchar" MaxLength="20" />
     <Property Name="Bid" Type="varchar" MaxLength="10" />
     <Property Name="class" Type="varchar" MaxLength="1" />
+    <Property Name="uname" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="RAdmin">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="int" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RUser">
+    <Key>
+      <PropertyRef Name="Uname" />
+    </Key>
+    <Property Name="UId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Uname" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="30" />
   </EntityType>
   <EntityType Name="TrainDetail">
     <Key>
@@ -48,6 +65,18 @@
       <Dependent Role="Book">
         <PropertyRef Name="Tno" />
         <PropertyRef Name="class" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Book__uname__0B91BA14">
+    <End Role="RUser" Type="Self.RUser" Multiplicity="0..1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RUser">
+        <PropertyRef Name="Uname" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="uname" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -77,12 +106,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Cancel__uname__0C85DE4D">
+    <End Role="RUser" Type="Self.RUser" Multiplicity="0..1" />
+    <End Role="Cancel" Type="Self.Cancel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RUser">
+        <PropertyRef Name="Uname" />
+      </Principal>
+      <Dependent Role="Cancel">
+        <PropertyRef Name="uname" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="RailwayModelStoreContainer">
     <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Cancel" EntityType="Self.Cancel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RAdmin" EntityType="Self.RAdmin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RUser" EntityType="Self.RUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrainDetail" EntityType="Self.TrainDetail" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Book__4AB81AF0" Association="Self.FK__Book__4AB81AF0">
       <End Role="TrainDetail" EntitySet="TrainDetail" />
+      <End Role="Book" EntitySet="Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Book__uname__0B91BA14" Association="Self.FK__Book__uname__0B91BA14">
+      <End Role="RUser" EntitySet="RUser" />
       <End Role="Book" EntitySet="Book" />
     </AssociationSet>
     <AssociationSet Name="FK__Cancel__5629CD9C" Association="Self.FK__Cancel__5629CD9C">
@@ -91,6 +138,10 @@
     </AssociationSet>
     <AssociationSet Name="FK__Cancel__Bid__5AEE82B9" Association="Self.FK__Cancel__Bid__5AEE82B9">
       <End Role="Book" EntitySet="Book" />
+      <End Role="Cancel" EntitySet="Cancel" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cancel__uname__0C85DE4D" Association="Self.FK__Cancel__uname__0C85DE4D">
+      <End Role="RUser" EntitySet="RUser" />
       <End Role="Cancel" EntitySet="Cancel" />
     </AssociationSet>
   </EntityContainer>

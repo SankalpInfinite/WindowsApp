@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.cs" />
     <Compile Include="Book.cs">
       <DependentUpon>Ticket.tt</DependentUpon>
     </Compile>
@@ -62,10 +63,15 @@
     <Compile Include="Cancel.cs">
       <DependentUpon>Ticket.tt</DependentUpon>
     </Compile>
-    <Compile Include="Admin.cs" />
     <Compile Include="CancelTicket.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RAdmin.cs">
+      <DependentUpon>Ticket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RUser.cs">
+      <DependentUpon>Ticket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Ticket.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

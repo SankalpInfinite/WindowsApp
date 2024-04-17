@@ -15,8 +15,9 @@ namespace Railway
         {
 
         }
-        public static void Cancel_Ticket()
+        public static void Cancel_Ticket(string uname)
         {
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             ct = new Cancel();
             ct.Cid = Cancelid();
             Console.WriteLine("Enter the Booking id");
@@ -27,15 +28,15 @@ namespace Railway
             else
                 Console.WriteLine("Enter Correct Booking Id");
             Console.WriteLine("Enter the Cancel Date");
-            ct.Candate = Convert.ToDateTime(Console.ReadLine());
-            
+            ct.Candate = DateTime.Now;
+
             ct.Tno = d.Tno;
             ct.@class = d.@class;
             ct.NoofCTic = d.NoofTic;
             AddCancelTicket((int)d.NoofTic, (int)d.Tno, d.@class);
             ct.refund = AmounttobeRedunded(BookingID);
             ct.rem = "Processing";
-             
+            ct.uname = uname;
             ral.Cancels.Add(ct);
             ral.SaveChanges();
         }
@@ -44,7 +45,8 @@ namespace Railway
             var Details = ral.Cancels.ToList();
             foreach (var d in Details)
             {
-                Console.WriteLine($"Cancel Id: {d.Cid}\r\nBook Id: {d.Bid}\r\nTrain no: {d.Tno}\r\nTrain Class: {d.@class}\r\nCancel Date: {d.Candate}\r\nNo of Tickets: {d.NoofCTic}\r\nRefund Amount: {d.refund}\r\nStatus: {d.rem}");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"User Name: {d.uname}\r\nCancel Id: {d.Cid}\r\nBook Id: {d.Bid}\r\nTrain no: {d.Tno}\r\nTrain Class: {d.@class}\r\nCancel Date: {d.Candate}\r\nNo of Tickets: {d.NoofCTic}\r\nRefund Amount: {d.refund}\r\nStatus: {d.rem}");
                 Console.WriteLine("----------------------------");
             }
         }
@@ -102,18 +104,25 @@ namespace Railway
         }
         public static void AddCancelTicket(int seats,int tarino,string cla)
         {
+
             TrainDetail d = ral.TrainDetails.Find(tarino, cla);
             if (d != null)
             {
                 if (d.AvailableBerth <= d.TotalBerth)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
                     d.AvailableBerth = d.AvailableBerth + seats;
                     ral.SaveChanges();
                     Console.WriteLine("Seats Successfull Cancelled");
                 }
             }
+
             else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.WriteLine("Match not found");
+            }
+                
         }
     }
 }

@@ -22,8 +22,10 @@ namespace Railway
         public string rem { get; set; }
         public string Bid { get; set; }
         public string @class { get; set; }
+        public string uname { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual TrainDetail TrainDetail { get; set; }
+        public virtual RUser RUser { get; set; }
     }
 }

@@ -4,13 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2085c0860a8e4432bc7cd3a6e08d63a1" Name="Diagram1">
+      <Diagram DiagramId="2085c0860a8e4432bc7cd3a6e08d63a1" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="RailwayModel.Book" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="RailwayModel.Cancel" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="RailwayModel.TrainDetail" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="RailwayModel.FK__Book__4AB81AF0" ManuallyRouted="false" />
         <AssociationConnector Association="RailwayModel.FK__Cancel__Bid__5AEE82B9" ManuallyRouted="false" />
         <AssociationConnector Association="RailwayModel.FK__Cancel__5629CD9C" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RailwayModel.RUser" Width="1.5" PointX="8" PointY="4.5" />
+        <AssociationConnector Association="RailwayModel.FK__Book__uname__0B91BA14" />
+        <AssociationConnector Association="RailwayModel.FK__Cancel__uname__0C85DE4D" />
+        <EntityTypeShape EntityType="RailwayModel.RAdmin" Width="1.5" PointX="7.875" PointY="2.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
