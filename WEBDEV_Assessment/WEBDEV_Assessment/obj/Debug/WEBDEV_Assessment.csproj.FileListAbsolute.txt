@@ -1,0 +1,7 @@
+C:\Users\sankalpm\source\repos\WEBDEV_Assessment\WEBDEV_Assessment\bin\Debug\WEBDEV_Assessment.exe.config
+C:\Users\sankalpm\source\repos\WEBDEV_Assessment\WEBDEV_Assessment\bin\Debug\WEBDEV_Assessment.exe
+C:\Users\sankalpm\source\repos\WEBDEV_Assessment\WEBDEV_Assessment\bin\Debug\WEBDEV_Assessment.pdb
+C:\Users\sankalpm\source\repos\WEBDEV_Assessment\WEBDEV_Assessment\obj\Debug\WEBDEV_Assessment.csproj.AssemblyReference.cache
+C:\Users\sankalpm\source\repos\WEBDEV_Assessment\WEBDEV_Assessment\obj\Debug\WEBDEV_Assessment.csproj.CoreCompileInputs.cache
+C:\Users\sankalpm\source\repos\WEBDEV_Assessment\WEBDEV_Assessment\obj\Debug\WEBDEV_Assessment.exe
+C:\Users\sankalpm\source\repos\WEBDEV_Assessment\WEBDEV_Assessment\obj\Debug\WEBDEV_Assessment.pdb

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    1st Number: <input type="text" id="firstNumber"><br>
+    2nd Number: <input type="text" id="secondNumber"><br>
+    <input type="button" onClick="multiplyBy()" value="Multiply">
+    <input type="button" onClick="divideBy()" value="Divide">
+    
+    <p id="result"></p">
+    <script>
+        function multiplyBy() {
+            const num1 = parseFloat(document.getElementById("firstNumber").value);
+            const num2 = parseFloat(document.getElementById("secondNumber").value);
+            document.getElementById("result").innerHTML = num1 * num2;
+        }
+
+        function divideBy() {
+            const num1 = parseFloat(document.getElementById("firstNumber").value);
+            const num2 = parseFloat(document.getElementById("secondNumber").value);
+            document.getElementById("result").innerHTML = num1 / num2;
+        }
+    </script>
+</body>
+</html>
